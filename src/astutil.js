@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-2.0.
  *******************************************************************************/
 
-const esprima = require('esprima');
+const espree = require('espree');
 const fs = require('fs');
 const vueParser = require('vue-parser');
 const prep = require('./srcPreprocessor');
@@ -280,10 +280,16 @@ To avoid confusion caused by too many different parsing settings,
 please call this function whenever possible instead of rewriting esprima.parseModule...
 */
 function parse(src) {
-    return esprima.parseModule(src, {
+    return espree.parse(src, {
         loc: true,
         range: true,
-        jsx: true
+        jsx: true,
+        // allowReserved: false,
+        // tokens: true,
+        // impliedStrict: true,
+        // globalReturn: true,
+        ecmaVersion:latest,
+        sourceType:'module'
     });
 }
 
