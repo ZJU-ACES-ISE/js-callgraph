@@ -288,7 +288,7 @@ function parse(src) {
         // tokens: true,
         // impliedStrict: true,
         // globalReturn: true,
-        ecmaVersion:latest,
+        ecmaVersion:'latest',
         sourceType:'module'
     });
 }
