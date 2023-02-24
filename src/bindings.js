@@ -98,9 +98,10 @@ define(function (require, exports) {
                     case 'CatchClause':
                         scope = new symtab.Symtab(scope);
                         scope.global = false;
-                        scope.set(nd.param.name, nd.param);
-
-                        doVisit(nd.param);
+                        if(nd.param!=null){
+                            scope.set(nd.param.name, nd.param);
+                            doVisit(nd.param);
+                       }
                         doVisit(nd.body);
 
                         scope = scope.outer;

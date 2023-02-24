@@ -53,7 +53,8 @@ define(function (require, exports) {
                     break;
 
                 case 'CatchClause':
-                    flow_graph.addEdge(unknownVertex(), varVertex(nd.param));
+                    if(nd!=null&&nd.param!=null)
+                        flow_graph.addEdge(unknownVertex(), varVertex(nd.param));
                     break;
 
                 // R3
