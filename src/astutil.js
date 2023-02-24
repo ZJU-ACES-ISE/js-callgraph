@@ -288,12 +288,20 @@ please call this function whenever possible instead of rewriting esprima.parseMo
 // }
 
 function parse(src) {
-    
     return esprima.parse(src, {
         loc: true,
         range: true,
         jsx: true,
         sourceType:'module'
+    });
+}
+function parseScript(src) {
+    return esprima.parse(src, {
+        loc: true,
+        range: true,
+        jsx: true,
+        allowReserved :true,
+        sourceType:'script'
     });
 }
 /* Parse a single source file and return its ast
@@ -334,8 +342,12 @@ function buildProgram (fname, src) {
         prog = parse(src);
     }
     catch(err) {
-        reportError('Warning: espree failed to parse ' + fname, err);
-        return null;
+        try {
+            prog = parseScript(src);
+        } catch (error) {
+            reportError('Warning: espree failed to parse ' + fname, err);
+            return null;
+        }
     }
     prog.attr = {filename: fname};
     return prog;
