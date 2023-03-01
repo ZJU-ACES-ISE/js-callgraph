@@ -293,6 +293,7 @@ function parse(src) {
         loc: true,
         range: true,
         jsx: true,
+        allowReturnOutsideFunction: true,
         sourceType:'module'
     });
 }

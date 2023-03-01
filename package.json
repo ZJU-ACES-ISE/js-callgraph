@@ -23,10 +23,12 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
-    "jest": "^23.1.0"
+    "jest": "^23.1.0",
+    "patch-package": "^6.5.1"
   },
   "scripts": {
-    "test": "jest && python3 ./tests/test.py"
+    "test": "jest && python3 ./tests/test.py",
+    "postinstall": "patch-package"
   },
   "jest": {
     "testRegex": "tests/jest/.*\\.(js|jsx)$"

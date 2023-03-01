@@ -1,0 +1,27 @@
+diff --git a/node_modules/espree/dist/espree.cjs b/node_modules/espree/dist/espree.cjs
+index 352d595..c487f96 100644
+--- a/node_modules/espree/dist/espree.cjs
++++ b/node_modules/espree/dist/espree.cjs
+@@ -386,17 +386,17 @@ function normalizeOptions(options) {
+     const ranges = options.range === true;
+     const locations = options.loc === true;
+ 
+-    if (ecmaVersion !== 3 && options.allowReserved) {
++    // if (ecmaVersion !== 3 && options.allowReserved) {
+ 
+-        // a value of `false` is intentionally allowed here, so a shared config can overwrite it when needed
+-        throw new Error("`allowReserved` is only supported when ecmaVersion is 3");
+-    }
++    //     // a value of `false` is intentionally allowed here, so a shared config can overwrite it when needed
++    //     throw new Error("`allowReserved` is only supported when ecmaVersion is 3");
++    // }
+     if (typeof options.allowReserved !== "undefined" && typeof options.allowReserved !== "boolean") {
+         throw new Error("`allowReserved`, when present, must be `true` or `false`");
+     }
+     const allowReserved = ecmaVersion === 3 ? (options.allowReserved || "never") : false;
+     const ecmaFeatures = options.ecmaFeatures || {};
+-    const allowReturnOutsideFunction = options.sourceType === "commonjs" ||
++    const allowReturnOutsideFunction = options.sourceType === "module" ||options.sourceType === "script" ||
+         Boolean(ecmaFeatures.globalReturn);
+ 
+     if (sourceType === "module" && ecmaVersion < 6) {
