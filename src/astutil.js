@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-2.0.
  *******************************************************************************/
 
-const esprima = require('esprima');
+const esprima = require('espree');
 const fs = require('fs');
 const vueParser = require('vue-parser');
 const prep = require('./srcPreprocessor');
@@ -279,14 +279,23 @@ function reportError(msg, err) {
 To avoid confusion caused by too many different parsing settings,
 please call this function whenever possible instead of rewriting esprima.parseModule...
 */
+// function parse(src) {
+//     return esprima.parseModule(src, {
+//         loc: true,
+//         range: true,
+//         jsx: true
+//     });
+// }
+
 function parse(src) {
-    return esprima.parseModule(src, {
+    
+    return esprima.parse(src, {
         loc: true,
         range: true,
-        jsx: true
+        jsx: true,
+        sourceType:'module'
     });
 }
-
 /* Parse a single source file and return its ast
 Args:
     fname - A string, the name of the source file
@@ -325,7 +334,7 @@ function buildProgram (fname, src) {
         prog = parse(src);
     }
     catch(err) {
-        reportError('Warning: Esprima failed to parse ' + fname, err);
+        reportError('Warning: espree failed to parse ' + fname, err);
         return null;
     }
     prog.attr = {filename: fname};
