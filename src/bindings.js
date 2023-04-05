@@ -98,6 +98,16 @@ define(function (require, exports) {
                     case 'CatchClause':
                         scope = new symtab.Symtab(scope);
                         scope.global = false;
+                        /*
+                            In some projects, the trycatch statement is written as follows:
+                            try{
+
+                            }catch{
+
+                            }
+                            In this case, nd.param == null, but it does not affect the construction 
+                            of function dependency, so special judgment is made on trycatch in this format
+                        */
                         if(nd.param!=null){
                             scope.set(nd.param.name, nd.param);
                             doVisit(nd.param);
