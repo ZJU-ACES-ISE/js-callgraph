@@ -283,7 +283,12 @@ function parse(src) {
     return esprima.parseModule(src, {
         loc: true,
         range: true,
-        jsx: true
+        jsx: true,
+        /*
+        Adding ecmaFeatures:{globalReturn:true} allows the parse function
+        in jscallgraph to parse return statements written outside the function.
+        */
+        ecmaFeatures:{globalReturn:true}
     });
 }
 
