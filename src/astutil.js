@@ -280,18 +280,19 @@ To avoid confusion caused by too many different parsing settings,
 please call this function whenever possible instead of rewriting esprima.parseModule...
 */
 function parse(src) {
-    return esprima.parseModule(src, {
+      
+    return espree.parse(src, {
         loc: true,
         range: true,
         jsx: true,
-        /*
+         /*
         Adding ecmaFeatures:{globalReturn:true} allows the parse function
         in jscallgraph to parse return statements written outside the function.
         */
-        ecmaFeatures:{globalReturn:true}
+        ecmaFeatures:{globalReturn:true},
+        sourceType:'module'
     });
 }
-
 /* Parse a single source file and return its ast
 Args:
     fname - A string, the name of the source file
