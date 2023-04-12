@@ -53,6 +53,7 @@ define(function (require, exports) {
                     break;
 
                 case 'CatchClause':
+                    //A special judgment is made on the format without (error) after catch in a trycatch statement
                     if(nd!=null&&nd.param!=null)
                         flow_graph.addEdge(unknownVertex(), varVertex(nd.param));
                     break;
