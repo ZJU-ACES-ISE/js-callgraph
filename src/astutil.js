@@ -296,11 +296,16 @@ please call this function whenever possible instead of rewriting esprima.parseMo
 
 //Change esprima's parse function to espree's parse function
 function parse(src) {
-    
+      
     return espree.parse(src, {
         loc: true,
         range: true,
         jsx: true,
+         /*
+        Adding ecmaFeatures:{globalReturn:true} allows the parse function
+        in jscallgraph to parse return statements written outside the function.
+        */
+        ecmaFeatures:{globalReturn:true},
         sourceType:'module'
     });
 }
