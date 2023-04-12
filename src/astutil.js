@@ -7,8 +7,15 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-2.0.
  *******************************************************************************/
-
-const esprima = require('espree');
+/*
+The need to change the dependency from esprima to espree is that 
+while esprima provides full ECMAScript 5.1 syntax support, 
+it does not provide support for ECMAScript 2015+ features. 
+espree provides the same functionality as esprima and implements 
+support for ECMAScript 2015+ features such as arrow functions 
+and default parameters. So espree can better support some of JavaScript's new syntax.
+*/
+const espree = require('espree');
 const fs = require('fs');
 const vueParser = require('vue-parser');
 const prep = require('./srcPreprocessor');
@@ -287,9 +294,10 @@ please call this function whenever possible instead of rewriting esprima.parseMo
 //     });
 // }
 
+//Change esprima's parse function to espree's parse function
 function parse(src) {
     
-    return esprima.parse(src, {
+    return espree.parse(src, {
         loc: true,
         range: true,
         jsx: true,
