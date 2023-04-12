@@ -11,7 +11,7 @@ function collectFiles(dir, filelist) {
         if (fs.statSync(path.join(dir, file)).isDirectory()) {
             filelist = collectFiles(path.join(dir, file), filelist);
         }
-        else if (file.endsWith(".js")) {
+        else if (file.endsWith(".js") || file.endsWith(".mjs")) {
             filelist.push(path.join(dir, file));
         }
     });
