@@ -301,7 +301,9 @@ function parse(src) {
         loc: true,
         range: true,
         jsx: true,
-        sourceType:'module'
+        sourceType:'module',
+        ecmaFeatures:{globalReturn:true,jsx:true,impliedStrict:false}
+
     });
 }
 /* Parse a single source file and return its ast
