@@ -306,7 +306,8 @@ function parse(src) {
         Adding ecmaFeatures:{globalReturn:true} allows the parse function
         in jscallgraph to parse return statements written outside the function.
         */
-        ecmaFeatures:{globalReturn:true}
+        ecmaFeatures:{globalReturn:true},
+        sourceType:'module'
     });
 }
 /* Parse a single source file and return its ast
