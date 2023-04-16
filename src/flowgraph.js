@@ -196,8 +196,12 @@ define(function (require, exports) {
 
     // variable vertices are cached at the variable declarations
     function varVertex(nd) {
-        if (nd.type !== 'Identifier')
-            throw new Error("invalid variable vertex");
+        /*
+        There are some projects in which the variable node type is not "Identifier", 
+        such as "ObjectPattern", so the node type should not be restricted.
+        */
+        // if (nd.type !== 'Identifier')
+        //     throw new Error("invalid variable vertex");
 
         return nd.attr.var_vertex
             || (nd.attr.var_vertex = {
