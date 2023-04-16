@@ -213,13 +213,32 @@ define(function (require, exports) {
     var propVertices = new symtab.Symtab();
 
     // retrieve property vertex from cache, or create new one
+    /*
+        The only two node types that propVertex supports parsing are 'Identifier' and 'Literal', 
+        This modification adds the pair of node types "PrivateIdentifier", 'TemplateLiteral', 
+        'BinaryExpression', 'CallExpression', 'ConditionalExpression', and 'MemberExpression' support.
+     */
     function propVertex(nd) {
         var p;
-        if (nd.type === 'Identifier')
+        if (nd.type === 'Identifier'||nd.type==="PrivateIdentifier")
             p = nd.name;
         else if (nd.type === 'Literal')
             // this case handles array, property field: 0, 1, 2...
             p = nd.value + "";
+        else if(nd.type === 'TemplateLiteral')
+            p = nd.expressions[0].name;
+        else if(nd.type==='BinaryExpression'){
+            p = nd.left.name+nd.operator+nd.right.name;
+        }
+        else if(nd.type==='CallExpression'){
+            p = nd.callee.name;
+        }
+        else if(nd.type==='ConditionalExpression'){
+            p = nd.test.left.name === nd.test.right.value ? nd.consequent.value:nd.alternate.value;
+        }
+        else if (nd.type === 'MemberExpression'){
+            p = nd.object.name + '.' +nd.property.name;
+        }
         else
             throw new Error("invalid property vertex");
 
@@ -231,6 +250,7 @@ define(function (require, exports) {
             }
         });
     }
+
 
     // global cache of global vertices
     let globVertices = new symtab.Symtab();
